@@ -20,7 +20,7 @@ export default function ViewLivro({ route }: { route: any }) {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {width: "auto"}]}>
       {livro && (
         <View style={styles.card}>
 
@@ -31,9 +31,9 @@ export default function ViewLivro({ route }: { route: any }) {
             
           <View style={styles.content}>
             <Image
-              resizeMode='cover'
+              resizeMode="contain"
               source={{ uri: `https://bibliotecaetecmaua.azurewebsites.net/Content/Images/${livro.imagem}` }}
-              style={styles.img}
+              style={[styles.img, {width: 200, aspectRatio: 1}]}
             />
         
 
@@ -66,31 +66,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#f2f2f2',
+    display: 'flex',
   },
 
   content: {
     flexDirection: 'row',
-    alignItems: 'center',
   },
   
   img: {
-    height: 200,
-    width: 200,
     // marginLeft:-50,
     marginBottom: 20,
-    borderWidth: 1,
-    borderColor: 'black',
+    marginRight: 30,
+    marginLeft: 30,
+    display: 'flex',
     // alignItems: 'center',
-    // justifyContent: 'center',
+    justifyContent: 'center',
   },
 
   card: {
     backgroundColor: 'lightgray',
     borderRadius: 20,
     padding: 20,
-    width: '50%',
     margin: "auto",
     alignItems: 'center',
+    justifyContent: 'center'
   },
 
   texto: {
@@ -117,6 +116,9 @@ const styles = StyleSheet.create({
 
   informacoes: {
     width: '100%',
+    display: 'flex',
+    flex: 1,
+    justifyContent: 'center'
   },
 
   label: {
