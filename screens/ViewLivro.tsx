@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import axios from 'axios';
 
-
-export default function ViewLivro({ route }) {
+export default function ViewLivro({ route }: { route: any }) {
   const { id } = route.params;
-  const [livro, setLivro] = useState(null);
+  const [livro, setLivro] = useState<any>(null);
 
   useEffect(() => {
     fetchLivro();
@@ -21,90 +20,111 @@ export default function ViewLivro({ route }) {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       {livro && (
-        <>
-          <div style={style.container}>
-            <div style={style.card}>
-              <div style={style.cabecalhoLivro}>
-                <Text>
-                  <Text style={style.descricaoTitulo}><Text style={{fontWeight: "bold"}}>Título: </Text>{livro.titulo} </Text>
-                </Text>
-                <Text>
-                  <Text style={style.descricaoAno}><Text style={{fontWeight: "bold", marginLeft: 12}}>Ano: </Text>{livro.ano} </Text>
-                </Text>
-              </div>
-              <div>
+        <View style={styles.card}>
 
-              </div>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Lançamento:</Text> {livro.ano}
-              </Text>      
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Assuntos:</Text> {livro.assuntos}
-              </Text>    
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Editora:</Text> {livro.editora}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Autor Principal:</Text> {livro.autorPrincipal}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Autores:</Text> {livro.autores}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Edição:</Text> {livro.edicao}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Id:</Text> {livro.id}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Idioma:</Text> {livro.idioma}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>ISBN/ISSN:</Text> {livro.isbnIssn}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Material:</Text> {livro.material}
-              </Text>
-              <Text>
-                <Text style={{fontWeight: "bold"}}>Obra:</Text> {livro.obra}
-              </Text>
-              <Image resizeMode='center' source={{ uri: `https://bibliotecaetecmaua.azurewebsites.net/Content/Images/${livro.imagem}` }} style={{ width: 200, height: 200 }} />
-            </div>
-          </div>
-        </>
+          <View style={styles.descricao}>
+            <Text style={styles.titulo}>{livro.titulo}</Text>
+            <Text style={styles.ano}>Lançamento: {livro.ano}</Text>
+          </View>
+            
+          <View style={styles.content}>
+            <Image
+              resizeMode='cover'
+              source={{ uri: `https://bibliotecaetecmaua.azurewebsites.net/Content/Images/${livro.imagem}` }}
+              style={styles.img}
+            />
+        
+
+            <View style={styles.texto}>
+           
+              <View style={styles.informacoes}>
+                <Text style={styles.label}>Assuntos: <Text style={styles.textLabel}>{livro.assuntos}</Text> </Text>
+                <Text style={styles.label}>Editora: <Text style={styles.textLabel}> {livro.editora}</Text></Text>
+                <Text style={styles.label}>Autor Principal: <Text style={styles.textLabel}> {livro.autorPrincipal}</Text></Text>
+                <Text style={styles.label}>Autores: <Text style={styles.textLabel}> {livro.autores}</Text></Text>
+                <Text style={styles.label}>Edição: <Text style={styles.textLabel}> {livro.edicao}</Text></Text>
+                <Text style={styles.label}>Editora: <Text style={styles.textLabel}> {livro.editora}</Text></Text>
+                <Text style={styles.label}>Id: <Text style={styles.textLabel}> {livro.id}</Text></Text>
+                <Text style={styles.label}>Idioma: <Text style={styles.textLabel}> {livro.idioma}</Text></Text>
+                <Text style={styles.label}>ISBN/ISSN: <Text style={styles.textLabel}> {livro.isbnIssn}</Text></Text>
+                <Text style={styles.label}>Material: <Text style={styles.textLabel}> {livro.material}</Text></Text>
+                <Text style={[styles.label, { marginBottom: 15 }]}>Obra: <Text style={styles.textLabel}> {livro.obra}</Text></Text>
+              </View>
+            </View>
+          </View>
+        </View>
       )}
     </View>
   );
 }
 
-const style = StyleSheet.create(
-  {
-    container: {
-      width: "50%",
-      margin: "auto",
-      backgroundColor: "lightgray",
-      borderRadius: 20,
-    },
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f2f2f2',
+  },
 
-    card: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-    },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  
+  img: {
+    height: 200,
+    width: 200,
+    // marginLeft:-50,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: 'black',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+  },
 
-    cabecalhoLivro: {
-      display: 'flex',
-    },
+  card: {
+    backgroundColor: 'lightgray',
+    borderRadius: 20,
+    padding: 20,
+    width: '50%',
+    margin: "auto",
+    alignItems: 'center',
+  },
 
-    descricaoTitulo: {
-      fontSize: 22
-    },
+  texto: {
+    // alignItems: 'center',
+  },
 
-    descricaoAno: {
-      fontSize: 22
-    }
+  descricao: {
+    marginBottom: 30,
+    marginTop: 10,
+  },
+  
+  titulo: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    marginBottom: 5,
+    textAlign: 'left',
+  },
+
+  ano: {
+    color: 'gray',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+
+  informacoes: {
+    width: '100%',
+  },
+
+  label: {
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
+
+  textLabel : {
+    fontWeight:"normal"
   }
-)
-
+});
